@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep &amp; Teens – Oral Exam Presentation</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #b0b8c4;
+            --accent: #7c6ff7;
+            --accent-glow: #9b8fff;
+            --moon: #f0c060;
+            --blue-accent: #58a6ff;
+            --pink-accent: #f778ba;
+            --green-accent: #3fb950;
+            --orange-accent: #f0883e;
+            --border: #30363d;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 20px;
+            --transition: 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.6); }
+        }
+
+        .presentation-container {
+            position: relative;
+            z-index: 1;
+            width: 92vw;
+            max-width: 1050px;
+            height: 85vh;
+            max-height: 700px;
+            perspective: 1200px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 50px 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(80px) scale(0.94);
+            pointer-events: none;
+            transition: var(--transition);
+            overflow: hidden;
+            gap: 20px;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: all;
+            z-index: 10;
+        }
+        .slide.exit-left {
+            opacity: 0;
+            transform: translateX(-80px) scale(0.94);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .slide-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex: 1;
+            min-height: 0;
+        }
+        .slide-text {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .slide-image {
+            flex: 0.8;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--border);
+            aspect-ratio: 4/3;
+            background: #1a1f2b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: transform 0.5s;
+        }
+        .slide.active .slide-image {
+            transform: scale(1.01);
+        }
+        .slide-image svg {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+
+        .slide-label {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-glow);
+        }
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        h2 .highlight {
+            background: linear-gradient(135deg, var(--accent), var(--pink-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--blue-accent);
+            margin-bottom: 2px;
+        }
+        p {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        ul li {
+            padding-left: 26px;
+            position: relative;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-glow);
+            font-size: 0.8rem;
+        }
+        .stat-badge {
+            display: inline-block;
+            background: rgba(124, 111, 247, 0.15);
+            border: 1px solid rgba(124, 111, 247, 0.35);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-weight: 700;
+            color: var(--accent-glow);
+            font-size: 0.9rem;
+            margin: 4px 4px 4px 0;
+        }
+        .stat-badge.green {
+            background: rgba(63, 185, 80, 0.15);
+            border-color: rgba(63, 185, 80, 0.35);
+            color: var(--green-accent);
+        }
+        .stat-badge.orange {
+            background: rgba(240, 136, 62, 0.15);
+            border-color: rgba(240, 136, 62, 0.35);
+            color: var(--orange-accent);
+        }
+
+        .quote-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent);
+            padding: 14px 20px;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: #c9d1d9;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 24px;
+            box-shadow: var(--shadow);
+        }
+        .nav button {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+        .nav button:hover {
+            background: rgba(124, 111, 247, 0.2);
+            color: #fff;
+        }
+        .nav button:active {
+            transform: scale(0.94);
+        }
+        .nav .slide-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            min-width: 60px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .nav .dot-row {
+            display: flex;
+            gap: 8px;
+        }
+        .nav .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .nav .dot.active-dot {
+            background: var(--accent-glow);
+            box-shadow: 0 0 12px var(--accent-glow);
+            width: 28px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 28px 22px;
+                gap: 12px;
+            }
+            .slide-content {
+                flex-direction: column-reverse;
+                gap: 16px;
+            }
+            .slide-image {
+                aspect-ratio: 16/9;
+                max-height: 180px;
+                width: 100%;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1rem;
+            }
+            p, ul li {
+                font-size: 0.85rem;
+            }
+            .nav {
+                bottom: 16px;
+                padding: 8px 14px;
+                gap: 8px;
+            }
+            .nav button {
+                font-size: 1rem;
+                padding: 6px 10px;
+            }
+            .presentation-container {
+                height: 80vh;
+                max-height: 600px;
+                width: 95vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="presentation-container" id="presentation">
+
+        <!-- SLIDE 1: Title -->
+        <div class="slide active" data-index="0">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">Oral Exam · English Presentation</span>
+                    <h2>Why <span class="highlight">Sleep</span> Is Crucial for <span class="highlight">Teenagers</span></h2>
+                    <p>A deep dive into the science of adolescent sleep — why it matters, what happens when teens don't get enough, and how to build healthier habits.</p>
+                    <div>
+                        <span class="stat-badge">🧠 Brain Development</span>
+                        <span class="stat-badge green">💪 Physical Health</span>
+                        <span class="stat-badge orange">😌 Mental Well-being</span>
+                    </div>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Sleeping teen in bed with moon & stars -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Moon -->
+                        <path d="M290 50 C280 20 240 10 230 30 C250 35 255 60 290 50Z" fill="#f0c060" />
+                        <!-- Stars -->
+                        <circle cx="310" cy="80" r="2" fill="white" />
+                        <circle cx="270" cy="30" r="1.5" fill="white" />
+                        <circle cx="340" cy="45" r="1" fill="white" />
+                        <!-- Bed -->
+                        <rect x="100" y="180" width="200" height="80" rx="8" fill="#3b4b5e" />
+                        <rect x="100" y="180" width="200" height="12" rx="4" fill="#7c6ff7" />
+                        <!-- Pillow -->
+                        <ellipse cx="140" cy="175" rx="30" ry="14" fill="#e6edf3" opacity="0.9" />
+                        <!-- Blanket -->
+                        <path d="M130 175 Q180 160 230 175 L230 230 L130 230Z" fill="#9b8fff" opacity="0.7" />
+                        <!-- Head -->
+                        <circle cx="135" cy="160" r="18" fill="#f5d5b8" />
+                        <!-- Hair -->
+                        <path d="M118 155 Q135 140 152 155" stroke="#4a3728" stroke-width="3" fill="none" />
+                        <!-- Eyes closed -->
+                        <path d="M128 160 Q131 163 134 160" stroke="#333" stroke-width="2" fill="none" />
+                        <path d="M138 160 Q141 163 144 160" stroke="#333" stroke-width="2" fill="none" />
+                        <!-- Zzz -->
+                        <text x="170" y="150" fill="white" font-size="14" font-weight="bold">Z</text>
+                        <text x="180" y="138" fill="white" font-size="18" font-weight="bold">Z</text>
+                        <text x="195" y="125" fill="white" font-size="22" font-weight="bold">Z</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Biological shift -->
+        <div class="slide" data-index="1">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">The Science</span>
+                    <h2>A <span class="highlight">Biological Shift</span> in Adolescence</h2>
+                    <p>During puberty, teens experience a natural delay in their circadian rhythm — often called <strong>"sleep phase delay."</strong> Their bodies release melatonin about <strong>2 hours later</strong> than children or adults.</p>
+                    <ul>
+                        <li>Melatonin onset shifts from ~9:30 PM to ~11:30 PM or later</li>
+                        <li>Teens are biologically wired to fall asleep later and wake up later</li>
+                        <li>Early school start times clash directly with this natural rhythm</li>
+                    </ul>
+                    <div class="quote-block">"Asking a teenager to fall asleep at 9 PM is like asking an adult to fall asleep at 7 PM — it goes against their biology." — Dr. Mary Carskadon</div>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Clock showing circadian shift -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Clock face -->
+                        <circle cx="200" cy="150" r="70" stroke="#7c6ff7" stroke-width="4" fill="none" />
+                        <!-- Hour markers -->
+                        <path d="M200 90 L200 100 M200 200 L200 210 M130 150 L140 150 M260 150 L270 150" stroke="#e6edf3" stroke-width="3" />
+                        <!-- Hands (pointing to 11 PM) -->
+                        <line x1="200" y1="150" x2="200" y2="110" stroke="#f778ba" stroke-width="4" stroke-linecap="round" />
+                        <line x1="200" y1="150" x2="240" y2="150" stroke="#58a6ff" stroke-width="3" stroke-linecap="round" />
+                        <!-- Melatonin wave -->
+                        <path d="M80 220 Q130 180 180 220 Q230 260 280 220 Q320 190 350 210" stroke="#f0c060" stroke-width="2" fill="none" stroke-dasharray="6 4" />
+                        <text x="160" y="250" fill="#f0c060" font-size="12">Melatonin delay</text>
+                        <!-- Moon inside clock -->
+                        <path d="M190 125 C185 115 175 120 178 128 C185 122 192 130 190 125Z" fill="#f0c060" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Recommended hours -->
+        <div class="slide" data-index="2">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">How Much?</span>
+                    <h2>Teens Need <span class="highlight">8–10 Hours</span> Per Night</h2>
+                    <p>The American Academy of Sleep Medicine recommends <strong>8 to 10 hours</strong> of sleep per night for adolescents aged 13–18. Yet studies show:</p>
+                    <ul>
+                        <li><strong>Over 70%</strong> of high school students sleep less than 8 hours</li>
+                        <li><strong>Nearly 40%</strong> sleep 6 hours or fewer on school nights</li>
+                        <li>Sleep deprivation accumulates — creating a <strong>"sleep debt"</strong> that impacts every aspect of life</li>
+                    </ul>
+                    <div>
+                        <span class="stat-badge orange">⚠️ 70%+ are sleep-deprived</span>
+                        <span class="stat-badge green">✅ Goal: 8–10 hours</span>
+                    </div>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Alarm clock with 8-10 text -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Alarm clock body -->
+                        <circle cx="200" cy="160" r="60" stroke="#7c6ff7" stroke-width="5" fill="#161b22" />
+                        <!-- Clock hands -->
+                        <line x1="200" y1="160" x2="200" y2="120" stroke="#f778ba" stroke-width="4" stroke-linecap="round" />
+                        <line x1="200" y1="160" x2="230" y2="180" stroke="#58a6ff" stroke-width="3" stroke-linecap="round" />
+                        <!-- Bells -->
+                        <path d="M170 105 Q160 80 185 80" stroke="#f0c060" stroke-width="4" fill="none" />
+                        <path d="M230 105 Q240 80 215 80" stroke="#f0c060" stroke-width="4" fill="none" />
+                        <!-- Legs -->
+                        <line x1="180" y1="220" x2="170" y2="240" stroke="#e6edf3" stroke-width="3" />
+                        <line x1="220" y1="220" x2="230" y2="240" stroke="#e6edf3" stroke-width="3" />
+                        <!-- Text 8-10 -->
+                        <text x="200" y="165" text-anchor="middle" fill="white" font-size="18" font-weight="bold">8–10</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Consequences -->
+        <div class="slide" data-index="3">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">The Risks</span>
+                    <h2>What Happens <span class="highlight">Without Enough</span> Sleep?</h2>
+                    <p>Chronic sleep deprivation in teens is linked to serious consequences across multiple domains:</p>
+                    <ul>
+                        <li><strong>Academic decline:</strong> Poorer concentration, memory, and problem-solving</li>
+                        <li><strong>Mental health:</strong> Higher rates of anxiety, depression, and irritability</li>
+                        <li><strong>Physical risks:</strong> Weakened immune system, weight gain, acne flare-ups</li>
+                        <li><strong>Safety:</strong> Increased risk of car accidents (drowsy driving)</li>
+                        <li><strong>Social issues:</strong> Mood swings, conflicts with family and friends</li>
+                    </ul>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Tired student at desk -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Desk -->
+                        <rect x="80" y="200" width="240" height="20" rx="6" fill="#3b4b5e" />
+                        <!-- Student body -->
+                        <path d="M140 200 L140 130 Q180 120 220 130 L220 200" fill="#7c6ff7" opacity="0.6" />
+                        <!-- Head -->
+                        <circle cx="180" cy="100" r="30" fill="#f5d5b8" />
+                        <!-- Hair -->
+                        <path d="M150 95 Q180 60 210 95" stroke="#4a3728" stroke-width="4" fill="none" />
+                        <!-- Tired eyes -->
+                        <line x1="165" y1="100" x2="175" y2="100" stroke="#333" stroke-width="3" stroke-linecap="round" />
+                        <line x1="185" y1="100" x2="195" y2="100" stroke="#333" stroke-width="3" stroke-linecap="round" />
+                        <!-- Mouth (frown) -->
+                        <path d="M170 115 Q180 108 190 115" stroke="#333" stroke-width="2" fill="none" />
+                        <!-- Drooping energy lines -->
+                        <path d="M150 70 L140 55 M210 70 L220 55" stroke="#f0883e" stroke-width="2" fill="none" />
+                        <!-- Books -->
+                        <rect x="120" y="220" width="40" height="10" rx="2" fill="#58a6ff" />
+                        <rect x="135" y="210" width="30" height="10" rx="2" fill="#f778ba" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Benefits -->
+        <div class="slide" data-index="4">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">The Rewards</span>
+                    <h2>Benefits of <span class="highlight">Quality Sleep</span> for Teens</h2>
+                    <p>When teenagers consistently get enough sleep, the positive effects ripple through every area of life:</p>
+                    <ul>
+                        <li><strong>Sharper memory</strong> — Better retention for exams and learning</li>
+                        <li><strong>Emotional stability</strong> — Improved mood and stress management</li>
+                        <li><strong>Physical growth</strong> — Growth hormone is released during deep sleep</li>
+                        <li><strong>Stronger immunity</strong> — Fewer colds and illnesses</li>
+                        <li><strong>Better athletic performance</strong> — Faster reaction times and recovery</li>
+                        <li><strong>Clearer skin</strong> — Reduced cortisol means fewer breakouts</li>
+                    </ul>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Happy brain with checkmarks -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Brain shape -->
+                        <path d="M150 120 Q130 80 170 70 Q190 60 200 70 Q230 60 250 80 Q280 100 260 140 Q240 170 200 180 Q160 170 150 120Z" stroke="#7c6ff7" stroke-width="4" fill="#9b8fff" fill-opacity="0.15" />
+                        <!-- Happy eyes -->
+                        <circle cx="180" cy="110" r="5" fill="white" />
+                        <circle cx="220" cy="110" r="5" fill="white" />
+                        <!-- Smile -->
+                        <path d="M185 135 Q200 150 215 135" stroke="white" stroke-width="3" fill="none" />
+                        <!-- Checkmarks -->
+                        <path d="M120 180 L135 195 L155 170" stroke="#3fb950" stroke-width="4" fill="none" stroke-linecap="round" />
+                        <path d="M260 180 L275 195 L295 170" stroke="#3fb950" stroke-width="4" fill="none" stroke-linecap="round" />
+                        <text x="200" y="230" text-anchor="middle" fill="#3fb950" font-size="14">✓ healthy</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Tips -->
+        <div class="slide" data-index="5">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">Practical Advice</span>
+                    <h2>How Teens Can <span class="highlight">Improve Sleep</span></h2>
+                    <p>Small changes can make a big difference. Here are evidence-based strategies:</p>
+                    <ul>
+                        <li><strong>Consistent schedule:</strong> Same bedtime & wake time — even on weekends</li>
+                        <li><strong>Screen curfew:</strong> No phones/tablets at least <strong>1 hour before bed</strong> (blue light blocks melatonin)</li>
+                        <li><strong>Create a wind-down routine:</strong> Reading, journaling, or gentle music</li>
+                        <li><strong>Keep the room cool & dark:</strong> Ideal temperature ~18–20°C (65–68°F)</li>
+                        <li><strong>Avoid caffeine after 2 PM:</strong> Includes coffee, energy drinks, and soda</li>
+                        <li><strong>Get morning sunlight:</strong> Helps reset the circadian clock</li>
+                    </ul>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Cozy bedroom with phone crossed out -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Bed -->
+                        <rect x="60" y="180" width="280" height="80" rx="10" fill="#3b4b5e" />
+                        <rect x="60" y="180" width="280" height="14" rx="6" fill="#7c6ff7" />
+                        <!-- Pillow -->
+                        <ellipse cx="110" cy="175" rx="35" ry="16" fill="#e6edf3" opacity="0.8" />
+                        <!-- Lamp -->
+                        <rect x="300" y="140" width="8" height="40" rx="3" fill="#f0c060" />
+                        <path d="M290 140 L318 140 L310 110 L298 110Z" fill="#f0c060" opacity="0.8" />
+                        <!-- Phone with cross -->
+                        <rect x="150" y="120" width="40" height="60" rx="6" fill="#58a6ff" />
+                        <line x1="145" y1="115" x2="195" y2="185" stroke="#f778ba" stroke-width="4" stroke-linecap="round" />
+                        <text x="170" y="155" text-anchor="middle" fill="white" font-size="12">📵</text>
+                        <!-- Book -->
+                        <rect x="220" y="150" width="30" height="40" rx="3" fill="#f778ba" />
+                        <line x1="235" y1="150" x2="235" y2="190" stroke="white" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Conclusion -->
+        <div class="slide" data-index="6">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-label">Conclusion</span>
+                    <h2>Sleep Is <span class="highlight">Not a Luxury</span> — It's a <span class="highlight">Necessity</span></h2>
+                    <p>For teenagers, sleep is the foundation of <strong>physical health, academic success, and emotional well-being.</strong> It's not "lazy" to prioritize rest — it's smart, it's scientific, and it's essential.</p>
+                    <p style="font-weight:600;color:#fff;">The message is simple: <span style="color:var(--accent-glow);">Sleep well. Grow well. Live well.</span></p>
+                    <div>
+                        <span class="stat-badge">🧠 Smarter</span>
+                        <span class="stat-badge green">💪 Healthier</span>
+                        <span class="stat-badge orange">😌 Happier</span>
+                    </div>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">Thank you for listening! — Oral Exam Presentation</p>
+                </div>
+                <div class="slide-image">
+                    <!-- SVG: Sunrise / peaceful conclusion -->
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="16" fill="#1a1f2b" />
+                        <!-- Sky gradient approximation -->
+                        <rect x="0" y="0" width="400" height="180" fill="#2a1f4b" opacity="0.4" />
+                        <!-- Sun -->
+                        <circle cx="200" cy="180" r="50" fill="#f0c060" opacity="0.9" />
+                        <circle cx="200" cy="180" r="60" fill="#f0c060" opacity="0.3" />
+                        <!-- Horizon line -->
+                        <line x1="0" y1="180" x2="400" y2="180" stroke="#e6edf3" stroke-width="2" />
+                        <!-- Small person silhouette (peaceful) -->
+                        <circle cx="200" cy="140" r="10" fill="#e6edf3" />
+                        <path d="M190 155 L200 190 L210 155" fill="#e6edf3" />
+                        <path d="M185 170 L200 175 L215 170" stroke="#e6edf3" stroke-width="2" fill="none" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navBar">
+        <button id="prevBtn" title="Previous slide">◀ Prev</button>
+        <div class="dot-row" id="dotRow"></div>
+        <span class="slide-counter" id="slideCounter">1 / 7</span>
+        <button id="nextBtn" title="Next slide">Next ▶</button>
+    </nav>
+
+    <script>
+        (function() {
+            const starsContainer = document.getElementById('starsContainer');
+            for (let i = 0; i < 90; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--delay', (Math.random() * 5) + 's');
+                starsContainer.appendChild(star);
+            }
+
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentIndex = 0;
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounter = document.getElementById('slideCounter');
+            const dotRow = document.getElementById('dotRow');
+
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active-dot');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goToSlide(i));
+                dotRow.appendChild(dot);
+            }
+            const dots = document.querySelectorAll('.dot');
+
+            function updateSlide(newIndex, direction = 'next') {
+                if (newIndex === currentIndex) return;
+                if (newIndex < 0 || newIndex >= totalSlides) return;
+
+                const oldSlide = slides[currentIndex];
+                const newSlide = slides[newIndex];
+
+                if (direction === 'next') {
+                    oldSlide.classList.remove('active');
+                    oldSlide.classList.add('exit-left');
+                } else {
+                    oldSlide.classList.remove('active');
+                    oldSlide.style.transform = 'translateX(80px) scale(0.94)';
+                    oldSlide.style.opacity = '0';
+                }
+
+                newSlide.classList.remove('exit-left');
+                newSlide.style.transform = '';
+                newSlide.style.opacity = '';
+                void newSlide.offsetWidth;
+                newSlide.classList.add('active');
+
+                setTimeout(() => {
+                    oldSlide.classList.remove('exit-left');
+                    oldSlide.style.transform = '';
+                    oldSlide.style.opacity = '';
+                }, 500);
+
+                currentIndex = newIndex;
+                updateUI();
+            }
+
+            function goToSlide(index) {
+                if (index === currentIndex) return;
+                const direction = index > currentIndex ? 'next' : 'prev';
+                updateSlide(index, direction);
+            }
+
+            function updateUI() {
+                slideCounter.textContent = (currentIndex + 1) + ' / ' + totalSlides;
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active-dot', i === currentIndex);
+                });
+                prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
+                nextBtn.style.opacity = currentIndex === totalSlides - 1 ? '0.4' : '1';
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) updateSlide(currentIndex - 1, 'prev');
+            });
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < totalSlides - 1) updateSlide(currentIndex + 1, 'next');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                    e.preventDefault();
+                    if (currentIndex < totalSlides - 1) updateSlide(currentIndex + 1, 'next');
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentIndex > 0) updateSlide(currentIndex - 1, 'prev');
+                }
+            });
+
+            let touchStartX = 0;
+            const container = document.getElementById('presentation');
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            container.addEventListener('touchend', (e) => {
+                const diff = e.changedTouches[0].screenX - touchStartX;
+                if (Math.abs(diff) > 50) {
+                    if (diff < 0 && currentIndex < totalSlides - 1) {
+                        updateSlide(currentIndex + 1, 'next');
+                    } else if (diff > 0 && currentIndex > 0) {
+                        updateSlide(currentIndex - 1, 'prev');
+                    }
+                }
+            });
+
+            updateUI();
+            slides[0].classList.add('active');
+        })();
+    </script>
+</body>
+</html>
